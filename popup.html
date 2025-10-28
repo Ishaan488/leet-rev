@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Screen Reader</title>
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#94a3b8;
+      --accent:#7c3aed;
+      --accent-2:#06b6d4;
+      --glass: rgba(255,255,255,0.04);
+      --radius:10px;
+      --text:#e6eef8;
+    }
+    /* Layout */
+    html,body{height:100%;}
+    body{
+      margin:0;
+      padding:14px;
+      box-sizing:border-box;
+      min-width:300px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      /* background: linear-gradient(180deg, rgba(12,18,28,0.9), rgba(4,6,10,0.95)); */
+      background-color: #081224;
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      align-items:stretch;
+      height: auto;
+    }
+
+    h3{
+      margin:0;
+      font-size:1.05rem;
+      font-weight:600;
+      color:var(--text);
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    /* Controls */
+    .controls{display:flex;flex-direction:column;gap:8px;}
+    button{
+      width:100%;
+      padding:8px 10px;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,0.06);
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      color:var(--text);
+      font-weight:600;
+      cursor:pointer;
+      transition:transform .08s ease, box-shadow .12s ease, background .12s;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.02) inset;
+    }
+    button:hover{ transform: translateY(-1px); box-shadow:0 6px 18px rgba(2,6,23,0.6); }
+    button:active{ transform: translateY(0); }
+
+    /* Accent variations by id (keeps ids intact for JS)
+       Small, explicit accent colors help the UI look modern */
+    #startRead{ background-color: #7c3aed; border: none; color: white; }
+    #startRead:hover{ background-color: rgb(126, 40, 197); }
+    #stopRead{ background-color: #e05151; border:1px solid rgba(255,255,255,0.06); color:var(--text); }
+    #highlightText{ background-color: rgb(255, 190, 50); color:#081224; }
+    #generateNote{ background-color: #152033; color:#ffffff; }
+    #showCode{ background-color: #1b2a43;}
+    #showCode:hover{ background-color:#152033;;}
+    /* Content blocks */  
+    #codebox{
+      width:100%;
+      min-height:86px;
+      margin-top:6px;
+      white-space:pre-wrap;
+      font-size:0.55rem;
+      background:var(--card);
+      padding:5px;
+      border-radius:8px;
+      border:1px solid rgba(142, 29, 29, 0.768);
+      box-sizing:border-box;
+      color:var(--text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+      overflow:auto;
+    }
+
+    label{ display:block; margin-top:8px; color:var(--muted); font-size:0.8rem; }
+
+    #note{
+      width:100%;
+      min-height:200px;
+      margin-top:6px;
+      font-size: 0.7rem;
+      padding:8px;
+      box-sizing:border-box;
+      border-radius:8px;
+      border:1px solid rgba(255,255,255,0.03);
+      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
+      color:var(--text);
+      resize:vertical;
+      font-size:0.95rem;
+      font-family:inherit;
+    }
+
+    /* Make popup content look compact on narrower widths */
+    @media (min-width:420px){
+      body{ padding:18px; }
+    }
+  </style>
+</head>
+<body>
+  <h3>Leet-Rev</h3>
+  <div class="controls">
+    <button id="startRead">Start Reading</button>
+    <button id="stopRead">Stop Reading</button>
+    <button id="highlightText">Highlight Text</button>
+    <button id="showCode">Show Code</button>
+    <button id="generateNote">Generate Note ✨</button>
+  </div>
+  <div>
+    <label for="code">Code</label>
+    <pre id="codebox"><code id="code"></code></pre>
+    <label for="note">Note</label>
+    <textarea id="note"></textarea>
+  </div>
+  <script type="module" src="./bundle.js"></script>
+</body>
+</html>
